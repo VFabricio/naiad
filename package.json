@@ -1,0 +1,32 @@
+{
+  "name": "naiad",
+  "version": "0.1.0",
+  "description": "A library for building HTTP servers declaratively on Node, using Functional Reactive Programming",
+  "main": "dist/index.cjs",
+  "scripts": {
+    "test": "jest test src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VFabricio/naiad.git"
+  },
+  "keywords": [
+    "http",
+    "server",
+    "observable",
+    "functional",
+    "reactive",
+    "frp",
+    "declarative"
+  ],
+  "author": "Vilson Fabricio Juliatto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VFabricio/naiad/issues"
+  },
+  "homepage": "https://github.com/VFabricio/naiad#readme",
+  "devDependencies": {
+    "commitizen": "^4.2.1",
+    "cz-conventional-changelog": "^3.3.0"
+  }
+}
