@@ -4,6 +4,7 @@
   "description": "A library for building HTTP servers declaratively on Node, using Functional Reactive Programming",
   "main": "dist/index.cjs",
   "scripts": {
+    "commit" : "cz",
     "test": "jest test src/"
   },
   "repository": {
