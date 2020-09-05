@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "description": "A library for building HTTP servers declaratively on Node, using Functional Reactive Programming",
   "main": "dist/index.cjs",
+  "module": "dist/index.esm.js",
   "scripts": {
+    "build": "npm run clean && rollup -c",
     "clean": "rimraf dist",
     "commit": "cz",
-    "test": "jest test src/"
+    "prepare": "npm run build",
+    "test": "jest test src/",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
