@@ -1,3 +1,4 @@
+import { map } from './map'
 import { setupServer } from './setupServer'
 
-export { setupServer }
+export { map, setupServer }
