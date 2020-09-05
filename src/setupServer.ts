@@ -4,8 +4,9 @@ import { flatMap, map, reduce, takeUntil, tap } from 'rxjs/operators'
 import type { IncomingMessage, Server, ServerResponse } from 'http'
 import type { Observable } from 'rxjs'
 
-import type { Context, Transformer } from './coreTypes'
+import { defaults } from './config'
 import { res as resSymbol } from './symbols'
+import type { Context, Transformer } from './coreTypes'
 
 const createContext = (req: IncomingMessage, res: ServerResponse): Observable<Context> => {
   const data$: Observable<Buffer> = fromEvent(req, 'data')
@@ -15,11 +16,11 @@ const createContext = (req: IncomingMessage, res: ServerResponse): Observable<Co
     takeUntil(end$),
     reduce(
       (buffer: Buffer, nextChunk: Uint8Array) => Buffer.concat([buffer, nextChunk]),
-      Buffer.alloc(128),
+      Buffer.alloc(defaults.bodyBufferSize),
     ),
   )
 
-  const { headers, httpVersion, method = 'GET', url = '/' } = req
+  const { headers, httpVersion, method = defaults.requestMethod, url = defaults.requestUrl } = req
 
   const context$ = body$.pipe(
     map(body => ({
@@ -40,14 +41,16 @@ const createContext = (req: IncomingMessage, res: ServerResponse): Observable<Co
 const sendResponse = (context: Context): void => {
   const response = context.response || {}
   const {
-    body = '',
-    encoding = 'utf-8',
-    headers = {},
-    statusCode = 400,
+    body = defaults.responseBody,
+    encoding = defaults.responseEncoding,
+    headers = defaults.responseHeaders,
+    statusCode = defaults.responseStatusCode,
     statusMessage,
   } = response
 
-  const normalizedEncoding = Buffer.isEncoding(encoding) ? encoding : 'utf-8'
+  const normalizedEncoding = (
+    Buffer.isEncoding(encoding) ? encoding : defaults.responseEncoding as BufferEncoding
+  )
 
   const res = context[resSymbol]
 
