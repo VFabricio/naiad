@@ -45,6 +45,7 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^24.0.0",
+    "husky": "^4.2.5",
     "jest": "^26.4.2",
     "rimraf": "^3.0.2",
     "rollup": "^2.26.10",
