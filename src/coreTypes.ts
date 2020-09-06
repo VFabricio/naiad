@@ -33,4 +33,6 @@ interface Context extends Dict<any> {
 
 type Transformer = (request$: Observable<Context>) => Observable<Context>
 
-export { Context, Dict, Headers, PartialDict, Request, Response, Transformer }
+type Predicate<T> = (c: T) => boolean
+
+export { Context, Dict, Headers, PartialDict, Request, Response, Predicate, Transformer }
