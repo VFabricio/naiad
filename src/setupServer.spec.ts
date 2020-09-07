@@ -1,27 +1,21 @@
 import { request } from 'http'
-import { map } from 'rxjs/operators'
 import type { Server } from 'http'
 
-import type { Transformer } from './coreTypes'
+import { map } from './map'
 import { setupServer } from './setupServer'
+import type { Transformer } from './coreTypes'
 
-const echoTransformer: Transformer = request$ => request$.pipe(
-  map(context => ({
-    ...context,
-    response: {
-      body: context.request?.body,
-    },
-  })),
-)
+const echoTransformer: Transformer = map(context => ({
+  response: {
+    body: context.request?.body,
+  },
+}))
 
-const helloWorldTransformer: Transformer = request$ => request$.pipe(
-  map(context => ({
-    ...context,
-    response: {
-      body: 'Hello, World!',
-    },
-  })),
-)
+const helloWorldTransformer: Transformer = map(() => ({
+  response: {
+    body: 'Hello, World!',
+  },
+}))
 
 const port = 8080
 
