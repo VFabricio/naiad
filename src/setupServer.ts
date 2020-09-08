@@ -16,7 +16,7 @@ const createContext = (req: IncomingMessage, res: ServerResponse): Observable<Co
     takeUntil(end$),
     reduce(
       (buffer: Buffer, nextChunk: Uint8Array) => Buffer.concat([buffer, nextChunk]),
-      Buffer.alloc(defaults.bodyBufferSize),
+      Buffer.alloc(0),
     ),
   )
 

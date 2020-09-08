@@ -65,7 +65,7 @@ describe('setupServer', () => {
         responseBody += chunk
       })
       res.on('end', () => {
-        expect(responseBody).toMatch(requestBody)
+        expect(responseBody).toEqual(requestBody)
         done()
       })
     })

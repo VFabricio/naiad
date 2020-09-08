@@ -1,5 +1,4 @@
 const defaults = {
-  bodyBufferSize: 128,
   requestMethod: 'GET',
   requestUrl: '/',
   responseBody: '',
