@@ -11,6 +11,8 @@ const echoTransformer: Transformer = map(context => ({
   },
 }))
 
+const emptyTransformer: Transformer = map(() => ({}))
+
 const helloWorldTransformer: Transformer = map(() => ({
   response: {
     body: 'Hello, World!',
@@ -69,6 +71,32 @@ describe('setupServer', () => {
     })
 
     req.write(requestBody)
+    req.end()
+  })
+
+  test('can return a server with reasonable response defaults', done => {
+    server = setupServer(emptyTransformer)
+    server.listen(port)
+
+    const options = {
+      port,
+    }
+
+    const req = request(options, res => {
+      const chunks: Buffer[] = []
+      res.on('data', chunk => {
+        chunks.push(chunk)
+        console.log('Received ', chunk)
+      })
+      res.on('end', () => {
+        const responseBody = Buffer.concat(chunks)
+        expect(responseBody.toString()).toEqual('')
+        expect(res.statusCode).toEqual(200)
+        expect(res.statusMessage).toEqual('OK')
+        done()
+      })
+    })
+
     req.end()
   })
 })
