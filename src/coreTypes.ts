@@ -25,13 +25,13 @@ interface Response {
   statusMessage?: string,
 }
 
-interface Context extends Dict<any> {
+interface Context {
   [res]: ServerResponse,
   request?: Request,
   response?: Response,
 }
 
-type Transformer = (request$: Observable<Context>) => Observable<Context>
+type Transformer<T extends Observable<Context>, U extends Observable<Context>> = (request$: T) => U
 
 type Predicate<T> = (c: T) => boolean
 

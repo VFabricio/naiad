@@ -58,7 +58,10 @@ const sendResponse = (context: Context): void => {
   res.end(body, normalizedEncoding)
 }
 
-const setupServer = (transformer: Transformer, inputServer?: Server) => {
+const setupServer = (
+  transformer: Transformer<Observable<Context>, Observable<Context>>,
+  inputServer?: Server,
+) => {
   const server = inputServer || createServer()
 
   const rawRequest$: Observable<[IncomingMessage, ServerResponse]> = fromEvent(server, 'request')
